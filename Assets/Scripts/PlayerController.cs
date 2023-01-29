@@ -5,13 +5,22 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] Transform playerCamera = null;
+    [SerializeField] Transform player3rdCamera = null;
+    [SerializeField] Camera firstPersonVue = null;
+    [SerializeField] Camera thirdPersonVue = null;
     [SerializeField] float mouseSensitivity = 3.5f;
     [SerializeField] float walkSpeed = 6.0f;
+    [SerializeField] float runSpeed = 10.0f;
+    [SerializeField] float jumpHeight = 2.0f; //Hauteur de saut
     [SerializeField] float gravity = -13.0f;
     [SerializeField][Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
     [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
 
     [SerializeField] bool lockCursor = true;
+    [SerializeField] bool fpsVue = true;
+
+    private float speed;
+
 
     float cameraPitch = 0.0f;
     float velocityY = 0.0f;
@@ -21,7 +30,6 @@ public class PlayerController : MonoBehaviour
 
     Vector2 currentMouseDelta = Vector2.zero;
     Vector2 currentMouseDeltaVelocity = Vector2.zero;
-
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -29,6 +37,17 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+        }
+        speed = walkSpeed;
+        if(fpsVue)
+        {
+            firstPersonVue.enabled = true;
+            thirdPersonVue.enabled = false;
+        }
+        else
+        {
+            firstPersonVue.enabled = false;
+            thirdPersonVue.enabled = true;
         }
     }
 
@@ -49,6 +68,11 @@ public class PlayerController : MonoBehaviour
 
         playerCamera.localEulerAngles = Vector3.right * cameraPitch;
         transform.Rotate(Vector3.up * currentMouseDelta.x * mouseSensitivity);
+
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            ToggleFpsVue();
+        }
     }
 
     void UpdateMovement()
@@ -62,9 +86,41 @@ public class PlayerController : MonoBehaviour
             velocityY = 0.0f;
 
         velocityY += gravity * Time.deltaTime;
+
+        if (Input.GetButtonDown("Jump") && controller.isGrounded)
+        {
+            velocityY += Mathf.Sqrt(jumpHeight * -3.0f * gravity);
+            // Debug.Log("Jump");
+        }
+
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            speed = runSpeed;
+        }
+
+        if(Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            speed = walkSpeed;
+        }
 		
-        Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * walkSpeed + Vector3.up * velocityY;
+        Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * speed + Vector3.up * velocityY;
 
         controller.Move(velocity * Time.deltaTime);
+        
+    }
+
+    void ToggleFpsVue()
+    {
+        fpsVue = !fpsVue;
+        if(fpsVue)
+        {
+            firstPersonVue.enabled = true;
+            thirdPersonVue.enabled = false;
+        }
+        else
+        {
+            firstPersonVue.enabled = false;
+            thirdPersonVue.enabled = true;
+        }
     }
 }
