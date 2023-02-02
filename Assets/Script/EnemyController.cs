@@ -12,9 +12,8 @@ public class EnemyController : MonoBehaviour
     public Transform [] patrolPoint;
     
     public int targetPoint = 0;
-    public float sightRange, attackRange;
-    private bool playerInSightRange, playerInAttackRange;
-    public bool chasePlayer = false;
+    public float escapeRange, attackRange;
+    private float distancePlayer;
 
 
     // Start is called before the first frame update
@@ -26,19 +25,17 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerInAttackRange = false;
+        float distancePlayer = Vector3.Distance(transform.position, player.transform.position); //Check distance between ennemi and player
 
-        if (!isVisible(camera, player) && !playerInAttackRange) Patroling(); //If player isnt see, patrol
+        if (attackRange > distancePlayer) AttackPlayer();
+        else if (isVisible(camera, player) && distancePlayer < escapeRange) ChasePlayer();
+        else if (!isVisible(camera, player)) Patroling(); //If player isnt see, patrol
 
-        if (isVisible(camera, player) && !playerInAttackRange) ChasePlayer();
-
-        //else 
-            //Fonction pour détacher et faire revenir au 
-        // if (playerInAttackRange && playerInSightRange) AttackPlayer();
     }
 
 
-    bool isVisible (Camera cam, GameObject target){
+    bool isVisible (Camera cam, GameObject target)
+    {
 
         var planes = GeometryUtility.CalculateFrustumPlanes(cam);
         var point = target.transform.position;
@@ -47,14 +44,11 @@ public class EnemyController : MonoBehaviour
         {   
             if(plane.GetDistanceToPoint(point) < 0) return false;
         }
-        return GeometryUtility.TestPlanesAABB(planes, GetComponent<Collider>().bounds);
+        return true;
     }
 
     private void Patroling()
     {
-        
-        Debug.Log("Hey " + targetPoint);
-
         if(transform.position == patrolPoint[targetPoint].position){
             
             targetPoint++;
@@ -66,20 +60,15 @@ public class EnemyController : MonoBehaviour
 
     private void ChasePlayer()
     {
-
-        float distance = Vector3.Distance(transform.position, player.transform.position); //Check distance between ennemi and player
-
-        if (distance < 10) {
-            agent.SetDestination(player.transform.position);
-        } 
-        //else take position for patrol
-
+        agent.SetDestination(player.transform.position);
     }
 
     private void AttackPlayer()
     {
-        
-        Debug.Log("Listen");
+        agent.SetDestination(transform.position);
+
+        //LE JOUEUR PERD DES PV LA SUITE AU PROCHAIN EPISODE
+
     }
 
 
