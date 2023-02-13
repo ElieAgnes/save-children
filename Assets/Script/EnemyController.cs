@@ -12,8 +12,9 @@ public class EnemyController : MonoBehaviour
     public Transform [] patrolPoint;
     
     public int targetPoint = 0;
-    public float escapeRange, attackRange;
-    private float distancePlayer;
+    public float escapeRange, attackRange, cooldownAttack;
+    private float distancePlayer, lastAttack;
+    public bool purchasingPlayer = false;
 
 
     // Start is called before the first frame update
@@ -25,10 +26,10 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distancePlayer = Vector3.Distance(transform.position, player.transform.position); //Check distance between ennemi and player
+        distancePlayer = Vector3.Distance(transform.position, player.transform.position); //Check distance between ennemi and player
 
         if (attackRange > distancePlayer) AttackPlayer();
-        else if (isVisible(camera, player) && distancePlayer < escapeRange) ChasePlayer();
+        else if (isVisible(camera, player) && distancePlayer < escapeRange || purchasingPlayer) ChasePlayer();
         else if (!isVisible(camera, player)) Patroling(); //If player isnt see, patrol
 
     }
@@ -60,6 +61,19 @@ public class EnemyController : MonoBehaviour
 
     private void ChasePlayer()
     {
+        if (distancePlayer > escapeRange)
+        {
+            purchasingPlayer = false;
+            
+            //Step for give up purchase
+            
+        } else if (!purchasingPlayer)
+        {
+            purchasingPlayer = true;
+
+            //Step for engage purchase
+        }
+
         agent.SetDestination(player.transform.position);
     }
 
@@ -67,8 +81,10 @@ public class EnemyController : MonoBehaviour
     {
         agent.SetDestination(transform.position);
 
-        //LE JOUEUR PERD DES PV LA SUITE AU PROCHAIN EPISODE
-
+        if(Time.time - lastAttack > cooldownAttack){
+            lastAttack = Time.time;
+            Debug.Log("Bonk"); //LE JOUEUR PERD DES PV LA SUITE AU PROCHAIN EPISODE
+        }
     }
 
 
