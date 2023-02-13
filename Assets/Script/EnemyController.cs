@@ -42,8 +42,8 @@ public class EnemyController : MonoBehaviour
     }
 
 
-    bool isVisible (Camera cam, GameObject target){
-
+    bool isVisible (Camera cam, GameObject target)
+    {
         var planes = GeometryUtility.CalculateFrustumPlanes(cam);
         var point = target.transform.position;
 
@@ -56,13 +56,11 @@ public class EnemyController : MonoBehaviour
 
     private void Patroling()
     {
-        
         Debug.Log("Hey");
     }
 
     private void ChasePlayer()
     {
-
         float distance = Vector3.Distance(transform.position, player.transform.position);
 
         if (distance < 10)  agent.SetDestination(player.transform.position);
@@ -73,7 +71,6 @@ public class EnemyController : MonoBehaviour
 
     private void AttackPlayer()
     {
-        
         Debug.Log("Listen");
     }
 
