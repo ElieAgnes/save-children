@@ -10,7 +10,8 @@ public class Interractor : MonoBehaviour
 
     private readonly Collider[] _colliders = new Collider[3];
     [SerializeField] private int _numFound;
-    [SerializeField] private InterractionUI interractionUI = null;
+    [SerializeField] private DoorInterractionUI interractionUI = null;
+    [SerializeField] private Player playerManager = null;
     private InterractorInterface interactable;
 
     private void Update() 
@@ -24,7 +25,7 @@ public class Interractor : MonoBehaviour
             {
                 if(!interractionUI.isDisplayed) interractionUI.activate(interactable.InteractionPrompt);
 
-                if(Input.GetKeyDown(KeyCode.F)) interactable.Interact(this);
+                if(Input.GetKeyDown(KeyCode.F)) interactable.Interact(playerManager);
             }
         }
         else{

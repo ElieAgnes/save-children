@@ -13,7 +13,7 @@ public class DoorInterraction : MonoBehaviour, InterractorInterface
     private string test;
     public string InteractionPrompt => test;
 
-    public bool Interact(Interractor interactor)
+    public bool Interact(Player interactor)
     {
         if(isOpen)
         {

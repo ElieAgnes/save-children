@@ -12,6 +12,7 @@ public class TriggerDoorController : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if(other.CompareTag("_Player"))
         {
+            Debug.Log("MA GUEULE");
             if(openTrigger)
             {
                 myDoor.Play("DoorOpen", 0, 0.0f);

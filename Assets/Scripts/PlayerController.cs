@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool lockCursor = true;
     [SerializeField] bool fpsVue = true;
 
+    [SerializeField] public Player playerManager = null;
+
     private float speed;
 
 

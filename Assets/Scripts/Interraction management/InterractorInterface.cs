@@ -6,5 +6,5 @@ public interface InterractorInterface
 {
     public string InteractionPrompt {get;}
 
-    public bool Interact(Interractor interactor);
+    public bool Interact(Player interactor);
 }

@@ -489,6 +489,7 @@ GameObject:
   - component: {fileID: 740088684}
   - component: {fileID: 740088683}
   - component: {fileID: 740088685}
+  - component: {fileID: 740088686}
   m_Layer: 0
   m_Name: _Player
   m_TagString: Untagged
@@ -539,6 +540,7 @@ MonoBehaviour:
   mouseSmoothTime: 0.03
   lockCursor: 1
   fpsVue: 1
+  playerManager: {fileID: 0}
 --- !u!143 &740088684
 CharacterController:
   m_ObjectHideFlags: 0
@@ -575,7 +577,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _numFound: 0
-  interractionUI: {fileID: 1351745279}
+  interractionUI: {fileID: 1351745280}
+  playerManager: {fileID: 740088686}
+--- !u!114 &740088686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740088681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 952dc5dac1c9fd54a949651e3158c0f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &941479378
 GameObject:
   m_ObjectHideFlags: 0
@@ -775,6 +790,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1108544108}
+  - component: {fileID: 1108544109}
   m_Layer: 0
   m_Name: _Map
   m_TagString: Untagged
@@ -798,6 +814,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1108544109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108544107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c91a18d16dcfaef4f8f1e829819f76ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1351745274
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +839,7 @@ GameObject:
   - component: {fileID: 1351745277}
   - component: {fileID: 1351745276}
   - component: {fileID: 1351745279}
+  - component: {fileID: 1351745280}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -914,6 +943,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiPanel: {fileID: 1351745274}
   promptText: {fileID: 1858694843}
+  isDisplayed: 0
+--- !u!114 &1351745280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351745274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acee36e925b25a74e971506746bc7383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiPanel: {fileID: 0}
+  promptText: {fileID: 0}
   isDisplayed: 0
 --- !u!1 &1571200228 stripped
 GameObject:

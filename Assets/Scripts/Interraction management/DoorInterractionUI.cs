@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class InterractionUI : MonoBehaviour
+public class DoorInterractionUI : MonoBehaviour
 {
     [SerializeField] private GameObject uiPanel = null;
     [SerializeField] private TextMeshProUGUI promptText = null;
@@ -14,11 +14,6 @@ public class InterractionUI : MonoBehaviour
     {
         uiPanel.SetActive(false);
         isDisplayed = false;
-    }
-
-    void Update()
-    {
-        
     }
 
     public void activate(string text)
