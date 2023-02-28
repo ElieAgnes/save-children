@@ -1,23 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float health = 100.0f;
     [SerializeField] private float hunger = 100.0f;
     [SerializeField] private float enduro = 100.0f;
+    [SerializeField] private Slider healthBar = null;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        healthBar.maxValue = 100.0f;
     }
 
     void Hurt(float damage = 1.0f)
     {
         Debug.Log("Player Health : "  + health.ToString());
         health -= damage;
+    }
+
+    void Feed(float amount)
+    {
+        hunger += amount;
+        if(hunger > 100.0f) hunger = 100.0f;
     }
 
     void useRun(float deltaTime = 0.0f)
@@ -53,6 +62,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        healthBar.value = health;
     }
 }

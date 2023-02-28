@@ -35,12 +35,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        speed = walkSpeed;
         if(lockCursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
-        speed = walkSpeed;
         if(fpsVue)
         {
             firstPersonVue.enabled = true;
@@ -55,8 +55,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        UpdateMouseLook();
+        UpdateController();
+        if(lockCursor) UpdateMouseLook();
         UpdateMovement();
+    }
+
+    void UpdateController()
+    {
+        if(Input.GetKeyDown(KeyCode.F3))
+        {
+            ToggleCursor();    
+        }
     }
 
     void UpdateMouseLook()
@@ -123,6 +132,23 @@ public class PlayerController : MonoBehaviour
         {
             firstPersonVue.enabled = false;
             thirdPersonVue.enabled = true;
+        }
+    }
+
+    void ToggleCursor()
+    {
+        lockCursor = !lockCursor;
+        if(lockCursor)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Debug.Log("Hide cursor");
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Debug.Log("Show cursor");
         }
     }
 }
