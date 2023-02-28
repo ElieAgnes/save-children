@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.LeftShift))
         {
-            speed = walkSpeed;
+            speed = walkSpeed;  
         }
 		
         Vector3 velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * speed + Vector3.up * velocityY;

@@ -2,18 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodInteractor : MonoBehaviour
+public class FoodInterractor : MonoBehaviour
 {
-    [SerializeField] private Animator myDoor = null;
+    
+    public string InteractionPrompt => "Eat";
+    public bool Interact(Player interactor)
+    {
+        Debug.Log("NIQUE TA MERE LA PUTE");
 
-    [SerializeField] private bool openTrigger = false;
-    [SerializeField] private bool closeTrigger = false;
-
-    private void OnTriggerEnter(Collider other) {
-        if(other.CompareTag("_Player"))
-        {
-            Debug.Log("MA GUEULE");
-            
-        }
+        return true;
     }
 }
