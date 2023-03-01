@@ -10,22 +10,25 @@ public class Player : MonoBehaviour
     [SerializeField] private float health = 100.0f;
     [SerializeField] private float hunger = 100.0f;
     [SerializeField] private float enduro = 100.0f;
-    [SerializeField] private Slider healthBar = null;
-    [SerializeField] private Slider enduroBar = null;
-    [SerializeField] private Slider foodBar = null;
+
+    [SerializeField] private float healthMax = 100.0f;
+    private float hungerMax =0f;
+    private float enduroMax = 0f;
+
+    [SerializeField] private Image healthBar = null;
+    [SerializeField] private Image hungerhBar = null;
+    [SerializeField] private Image enduroBar = null;
     
     [SerializeField] private int kidsTOSave = 3;
     private int savedKids = 0;
     void Start()
     {
-        healthBar.maxValue = 100.0f;
-        enduroBar.maxValue = 100.0f;
-        foodBar.maxValue = 100.0f;
+        hungerMax = hunger;
+        enduroMax = enduro;
     }
 
-    void Hurt(float damage = 1.0f)
+    public void Hurt(float damage = 1.0f)
     {
-        Debug.Log("Player Health : "  + health.ToString());
         health -= damage;
     }
 
@@ -49,13 +52,13 @@ public class Player : MonoBehaviour
         if(enduro < 50.0f) hunger -= 0.1f * deltaTime;
     }
 
-    void useJump()
+    public void useJump()
     {
         // Jump use some enduro
         enduro -= 5.0f;
     }
 
-    void updateValues(float deltaTime = 0.0f)
+    public void updateValues(float deltaTime = 0.0f)
     {
         if(hunger < 0.0f) hunger = 0.0f;
         if(enduro < 0.0f) enduro = 0.0f;
@@ -74,9 +77,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthBar.value = health;
-        enduroBar.value = enduro;
-        foodBar.value = hunger;
+        healthBar.fillAmount = health / healthMax;
+        hungerhBar.fillAmount = hungerMax / hunger;    
+        enduroBar.fillAmount = enduroMax / enduro;  
+
         if(health <= 0.0f)
         {
             SceneManager.LoadScene("LoseScreen");
