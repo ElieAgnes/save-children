@@ -25,6 +25,6 @@ public class PlayButton : MonoBehaviour
 
     void OnMouseUp()
     {
-        SceneManager.LoadScene("LoseScreen");
+        SceneManager.LoadScene("GameScene");
     }
 }

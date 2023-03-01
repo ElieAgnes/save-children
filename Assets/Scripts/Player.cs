@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         }
         if(savedKids >= kidsTOSave)
         {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("WinScreen");
         }
     }
 
