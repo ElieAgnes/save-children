@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] Transform playerCamera = null;
-    [SerializeField] Transform player3rdCamera = null;
     [SerializeField] Camera firstPersonVue = null;
     [SerializeField] Camera thirdPersonVue = null;
+    [SerializeField] GameObject playerCameraObject = null;
+    [SerializeField] GameObject playerThirdCameraObject = null;
     [SerializeField] float mouseSensitivity = 3.5f;
     [SerializeField] float walkSpeed = 6.0f;
     [SerializeField] float runSpeed = 10.0f;
@@ -127,11 +128,15 @@ public class PlayerController : MonoBehaviour
         {
             firstPersonVue.enabled = true;
             thirdPersonVue.enabled = false;
+            playerCameraObject.SetActive(true);
+            playerThirdCameraObject.SetActive(false);
         }
         else
         {
             firstPersonVue.enabled = false;
             thirdPersonVue.enabled = true;
+            playerCameraObject.SetActive(false);
+            playerThirdCameraObject.SetActive(true);
         }
     }
 

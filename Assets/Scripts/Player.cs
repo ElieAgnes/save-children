@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class Player : MonoBehaviour
 {
@@ -10,8 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float enduro = 100.0f;
     [SerializeField] private Slider healthBar = null;
     
-
-    // Start is called before the first frame update
+    [SerializeField] private int kidsTOSave = 3;
+    private int savedKids = 0;
     void Start()
     {
         healthBar.maxValue = 100.0f;
@@ -23,7 +25,12 @@ public class Player : MonoBehaviour
         health -= damage;
     }
 
-    void Feed(float amount)
+    public void Heal(float amount = 1.0f)
+    {
+        health += amount;
+    }
+
+    public void Feed(float amount)
     {
         hunger += amount;
         if(hunger > 100.0f) hunger = 100.0f;
@@ -63,5 +70,18 @@ public class Player : MonoBehaviour
     void Update()
     {
         healthBar.value = health;
+        if(health <= 0.0f)
+        {
+            SceneManager.LoadScene("LoseScreen");
+        }
+        if(savedKids >= kidsTOSave)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+    }
+
+    public void SaveKid()
+    {
+        savedKids ++;
     }
 }
