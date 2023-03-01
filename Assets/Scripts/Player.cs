@@ -11,12 +11,16 @@ public class Player : MonoBehaviour
     [SerializeField] private float hunger = 100.0f;
     [SerializeField] private float enduro = 100.0f;
     [SerializeField] private Slider healthBar = null;
+    [SerializeField] private Slider enduroBar = null;
+    [SerializeField] private Slider foodBar = null;
     
     [SerializeField] private int kidsTOSave = 3;
     private int savedKids = 0;
     void Start()
     {
         healthBar.maxValue = 100.0f;
+        enduroBar.maxValue = 100.0f;
+        foodBar.maxValue = 100.0f;
     }
 
     void Hurt(float damage = 1.0f)
@@ -36,8 +40,9 @@ public class Player : MonoBehaviour
         if(hunger > 100.0f) hunger = 100.0f;
     }
 
-    void useRun(float deltaTime = 0.0f)
+    public void useRun(float deltaTime = 0.0f)
     {
+        Debug.Log("Run used");
         // 20 Seconds of run should void enduro
         enduro -= 0.6f * deltaTime;
         // If enduro is lower than 50% The hunger is edited
@@ -70,6 +75,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         healthBar.value = health;
+        enduroBar.value = enduro;
+        foodBar.value = hunger;
         if(health <= 0.0f)
         {
             SceneManager.LoadScene("LoseScreen");

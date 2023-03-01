@@ -108,6 +108,8 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {
             speed = runSpeed;
+            Debug.Log("Use Run");
+            playerManager.useRun(Time.deltaTime);
         }
 
         if(Input.GetKeyUp(KeyCode.LeftShift))
